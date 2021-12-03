@@ -1,11 +1,12 @@
-import kotlin.io.path.*
-
 fun main() {
-	val input = Path("input/day_1.txt").readLines().asSequence().map { it.toInt() }
+	val partOne = { list: List<Int> -> list.zipWithNext().count { (a, b) -> b > a } }
+	val partTwo = { list: List<Int> -> list.windowed(3).map { it.sum() }.zipWithNext().count { (a, b) -> b > a } }
 	
-	val partOne = input.zipWithNext().count { (a, b) -> b > a }
-	println("Part one: $partOne")
+	val testInput = readInputLines("day_1_test").map { it.toInt() }
+	checkEquals(partOne(testInput), 7)
+	checkEquals(partTwo(testInput), 5)
 	
-	val partTwo = input.windowed(3).map { it.sum() }.zipWithNext().count { (a, b) -> b > a }
-	println("Part two: $partTwo")
+	val input = readInputLines("day_1").map { it.toInt() }
+	println("Part one: ${partOne(input)}")
+	println("Part two: ${partTwo(input)}")
 }
