@@ -45,7 +45,7 @@ fun main() {
 
 fun readDrawings(inputLines: List<String>) = inputLines.first().split(",").map(String::toInt)
 
-fun readBoards(inputLines: List<String>) = inputLines
+fun readBoards(inputLines: List<String>) = inputLines.asSequence()
 	.drop(1)
 	.filter(String::isNotEmpty)
 	.chunked(5)
@@ -53,6 +53,7 @@ fun readBoards(inputLines: List<String>) = inputLines
 		val values = list.map { it.split(" ").filter(String::isNotEmpty).map(String::toInt) }
 		Array(5) { x -> IntArray(5) { y -> values[x][y] } }
 	}
+	.toList()
 
 fun check(board: Board): Boolean {
 	if (board.any { it.sum() == -5 }) return true
